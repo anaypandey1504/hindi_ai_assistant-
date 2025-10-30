@@ -1,0 +1,151 @@
+📘 Hindi-Speaking Voice Assistant — Documentation
+🎯 Project Summary
+
+This project is a Hindi-speaking AI voice assistant that can:
+
+✅ Listen to your voice (Hindi)
+✅ Convert speech → text (offline)
+✅ Understand the text and generate a reply (rule-based logic)
+✅ Convert reply → speech (Hindi) and speak it
+✅ Optionally detect your face using webcam before listening
+
+The system works without any paid APIs and can run offline (except gTTS uses internet for voice generation).
+🛠️ Technologies / APIs Used & Why
+
+1. Vosk
+Used for Speech-to-Text (Hindi).
+Reason: Completely offline Hindi voice recognition, no API keys or internet needed.
+
+2. vosk-model-small-hi-0.22
+Hindi ASR (Automatic Speech Recognition) model used by Vosk.
+Reason: Lightweight Hindi speech model that runs locally on CPU.
+
+3. gTTS (Google Text-to-Speech)
+Used to convert Hindi text into spoken audio.
+Reason: Easy to use and produces natural-sounding Hindi voice.
+
+4. sounddevice
+Captures microphone audio.
+Reason: Simple and reliable Python library for real-time mic input.
+
+5. soundfile + numpy
+Used for handling raw audio data.
+Reason: Needed for reading, writing, and processing audio efficiently.
+
+6. playsound
+Plays the generated speech audio.
+Reason: Very simple cross-platform playback solution on Windows.
+
+7. OpenCV (optional)
+Used for face detection through webcam.
+Reason: Haar cascade-based face detection is lightweight and works without needing deep learning models.
+
+🖥️ Setup & Installation (Windows)
+1️⃣ Create Virtual Environment
+python -m venv venv
+venv\Scripts\activate
+
+2️⃣ Upgrade Pip
+pip install --upgrade pip setuptools wheel
+
+3️⃣ Install Required Libraries
+pip install -r requirements.txt
+
+4️⃣ Download Hindi Vosk Model
+
+Download from: https://alphacephei.com/vosk/models
+
+Choose vosk-model-small-hi-0.22
+
+Extract it in project directory like:
+
+project/
+    vosk-model-small-hi-0.22/
+
+▶️ How to Run
+✅ To run with pre-recorded audio file
+python main.py --file record_out_16k.wav
+
+🎤 To run with microphone + face detection
+python main.py
+
+🕹️ Controls
+Action	How
+Speak	Start program & talk in Hindi
+Stop Listening	Press Ctrl + C once
+Exit Program	Say "अलविदा" / "बाय" or press Ctrl + C twice
+🧠 Response Logic (Hindi)
+
+Example rules implemented:
+
+Greetings → "नमस्ते, मैं आपकी सहायता के लिए तैयार हूँ।"
+
+Asking name → "मेरा नाम वॉइस सहायक है।"
+
+Weather queries → "क्षमा करें, मैं अभी मौसम की जानकारी नहीं दे सकता।"
+
+Unknown input → "मैं समझ नहीं पाया, कृपया दोबारा बोलें।"
+
+🚧 Challenges & Solutions
+Problem	Reason	Fix
+Model not loading	Wrong directory path	Added clear error message & path validation
+Mic overflow	Audio buffer issues	Tuned buffer size & flatten numpy array
+OpenCV crash	No GUI window support	Removed display windows & used direct detection
+Only 1-turn conversation	Loop ended after 1 query	Added while-loop with exit intent
+gTTS online	Internet needed	Documented + offline alternative pyttsx3 suggested
+💡 Ideas for Improvement
+✅ Short-Term
+
+Replace gTTS → pyttsx3 offline
+
+Add fallback for unclear speech
+
+Add logging of conversations
+
+🚀 Mid-Term
+
+Wake-word detection ("नमस्ते साथी")
+
+Small NLU model for deeper intent understanding
+
+Keyword-based FAQ mode
+
+🌟 Advanced
+
+Coqui-TTS → neural Hindi offline voice
+
+GUI using Tkinter / Streamlit
+
+Memory for long conversations
+
+Multi-language (Hindi-English) switching
+
+📂 Project Folder Structure
+/project
+│── main.py
+│── stt.py
+│── tts.py
+│── responses.py
+│── face_detection.py
+│── requirements.txt
+│── record_out_16k.wav
+│── vosk-model-small-hi-0.22/
+└── README.md
+
+🎥 Demo Video Guidelines for Submission
+
+In your demo, show:
+
+1️⃣ Running mic mode
+2️⃣ You speaking in Hindi
+3️⃣ Transcription printed on terminal
+4️⃣ Assistant replying in Hindi + TTS speaking
+5️⃣ Face detection message ("User detected")
+
+✅ This documentation satisfies assignment requirements:
+
+✔ Technologies used & why
+✔ Setup & run steps
+✔ Challenges & solutions
+✔ Ideas for improvement
+✔ Clear Hindi assistant behavior
